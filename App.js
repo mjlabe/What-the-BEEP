@@ -8,6 +8,7 @@ import {
     StatusBar,
     SafeAreaView,
     Button,
+    TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,11 +19,13 @@ function HomeScreen() {
         <SafeAreaView style={styles.home}>
             <StatusBar barStyle="light-content" backgroundColor="#6a51ae"/>
             <View style={styles.body}>
-                <Image
-                    source={require('./main/images/dog_round.png')}
-                    alt=""
-                    style={styles.button}
-                />
+                <TouchableOpacity onPress={() => alert('BEEP!')}>
+                    <Image
+                        source={require('./main/images/dog_round.png')}
+                        alt=""
+                        style={styles.button}
+                    />
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -51,8 +54,8 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginLeft: 10,
-        height: dimensions.height/25 - 10,
-        width: dimensions.height/25 - 10,
+        height: 30,
+        width: 30,
     },
 });
 
@@ -75,20 +78,15 @@ function App() {
                         headerTitleStyle: {
                             fontWeight: 'bold',
                         },
-                        headerRight: () => (
-                            <Button
-                                onPress={() => alert('This is a button!')}
-                                title="Info"
-                                color="#fff"
-                            />
-                        ),
                         headerLeft: () => (
-                            <Image
-                                source={require('./main/images/dog-icon-light.png')}
-                                alt=""
-                                resizeMode={'stretch'}
-                                style={styles.logo}
-                            />
+                            <TouchableOpacity onPress={() => alert('Settings!')}>
+                                <Image
+                                    source={require('./main/images/dog-icon-light.png')}
+                                    alt=""
+                                    resizeMode={'stretch'}
+                                    style={styles.logo}
+                                />
+                            </TouchableOpacity>
                         ),
                     }}
                 />
