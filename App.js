@@ -15,6 +15,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Sound from 'react-native-sound';
 
 import Colors from './main/Colors';
+import AdMobAd from './ads/admob'
 
 function HomeScreen({navigation}) {
     React.useLayoutEffect(() => {
@@ -43,6 +44,7 @@ function HomeScreen({navigation}) {
                     />
                 </TouchableOpacity>
             </View>
+            <AdMobAd/>
         </SafeAreaView>
     );
 }
