@@ -13,6 +13,7 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Sound from 'react-native-sound';
+import SystemSetting from 'react-native-system-setting';
 
 import Colors from './main/Colors';
 
@@ -43,6 +44,9 @@ function HomeScreen({navigation}) {
                     />
                 </TouchableOpacity>
             </View>
+            <View style={styles.ads}>
+                {/*<AdMob/>*/}
+            </View>
         </SafeAreaView>
     );
 }
@@ -64,7 +68,8 @@ const styles = StyleSheet.create({
     home: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
         backgroundColor: Colors.darker,
     },
     button: {
@@ -76,21 +81,35 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30,
     },
+    ads: {
+        height: 60,
+        marginTop: 50,
+    },
 });
 
 let url = './main/audio/beep.m4a';
 
+let sound1 = new Sound(require(url),
+    (error, sound) => {
+        if (error) {
+            alert('error' + error.message);
+            return;
+        }
+    });
+
 function beep() {
-    let sound1 = new Sound(require(url),
-        (error, sound) => {
-            if (error) {
-                alert('error' + error.message);
-                return;
-            }
-            sound1.play(() => {
-                sound1.release();
-            });
-        });
+    let init_vol = 0.8;
+    SystemSetting.getVolume().then((volume) => {
+        init_vol = volume;
+    });
+    SystemSetting.setVolume(1);
+    sound1.play((success) => {
+        if (success) {
+            SystemSetting.setVolume(Number(init_vol));
+        } else {
+            console.log('playback failed due to audio decoding errors');
+        }
+    });
 }
 
 const Stack = createStackNavigator();
