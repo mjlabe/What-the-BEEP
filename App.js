@@ -7,28 +7,30 @@ import {
     Dimensions,
     StatusBar,
     SafeAreaView,
-    Button,
     TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
 import Sound from 'react-native-sound';
-import SystemSetting from 'react-native-system-setting';
+import SystemSetting from 'react-native-system-setting/SystemSetting';
+
+import {AdMobBanner} from 'react-native-admob';
 
 import Colors from './main/Colors';
 
-function HomeScreen({navigation}) {
+function HomeScreen({navigation, onFailToReceiveAd}) {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                // <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                     <Image
                         source={require('./main/images/dog-icon-light.png')}
                         alt=""
                         resizeMode={'stretch'}
                         style={styles.logo}
                     />
-                </TouchableOpacity>
+                // </TouchableOpacity>
             ),
         });
     });
@@ -45,7 +47,12 @@ function HomeScreen({navigation}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.ads}>
-                {/*<AdMob/>*/}
+                <AdMobBanner
+                    adSize="banner"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"
+                    testDeviceID={AdMobBanner.simulatorId}
+                    didFailToReceiveAdWithError={onFailToReceiveAd}
+                />
             </View>
         </SafeAreaView>
     );
@@ -115,6 +122,8 @@ function beep() {
 const Stack = createStackNavigator();
 
 function App() {
+    const onFailToReceiveAd = (error) => console.log(error);
+
     return (
         <NavigationContainer>
             <StatusBar barStyle="dark-content"/>
