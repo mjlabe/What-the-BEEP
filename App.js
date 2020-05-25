@@ -47,12 +47,12 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
                 </TouchableOpacity>
             </View>
             <View style={styles.ads}>
-                <AdMobBanner
-                    adSize="banner"
-                    adUnitID="ca-app-pub-3940256099942544/6300978111"
-                    testDeviceID={AdMobBanner.simulatorId}
-                    didFailToReceiveAdWithError={onFailToReceiveAd}
-                />
+                {/*<AdMobBanner*/}
+                {/*    adSize="banner"*/}
+                {/*    adUnitID="ca-app-pub-3940256099942544/6300978111"*/}
+                {/*    testDeviceID={AdMobBanner.simulatorId}*/}
+                {/*    didFailToReceiveAdWithError={onFailToReceiveAd}*/}
+                {/*/>*/}
             </View>
         </SafeAreaView>
     );
