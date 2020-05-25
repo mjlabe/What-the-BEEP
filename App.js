@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
     View,
-    Text,
     StyleSheet,
     Image,
     Dimensions,
@@ -18,19 +17,20 @@ import SystemSetting from 'react-native-system-setting/SystemSetting';
 import {AdMobBanner} from 'react-native-admob';
 
 import Colors from './main/Colors';
+import AudioFile from './settings/fileSelector';
 
 function HomeScreen({navigation, onFailToReceiveAd}) {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerLeft: () => (
-                // <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                     <Image
                         source={require('./main/images/dog-icon-light.png')}
                         alt=""
                         resizeMode={'stretch'}
                         style={styles.logo}
                     />
-                // </TouchableOpacity>
+                </TouchableOpacity>
             ),
         });
     });
@@ -60,11 +60,12 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
 
 function SettingsScreen({navigation}) {
     return (
-        <SafeAreaView style={styles.home}>
+        <SafeAreaView style={styles.settings}>
             <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
-            <View style={styles.body}>
-                <Text>Details Screen</Text>
-            </View>
+            <View style={{padding: 20}}/>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3*dimensions.width/4}/>
+            <View style={{padding: 10}}/>
+            <AudioFile id={2} text=""  icon="folder-open" width={3*dimensions.width/4}/>
         </SafeAreaView>
     );
 }
@@ -77,6 +78,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'flex-end',
+        backgroundColor: Colors.darker,
+    },
+    settings: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
         backgroundColor: Colors.darker,
     },
     button: {
