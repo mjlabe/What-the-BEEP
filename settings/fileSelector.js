@@ -18,23 +18,24 @@ export default function AudioFile(props: Props) {
         <SafeAreaView style={[{width: props.width}]}>
             <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
             <View style={styles.fileSelector}>
-                <View>
+                <View style={styles.checkBoxView}>
                     <CheckBox
                         disabled={false}
                         value={true}
+                        style={styles.checkBox}
+                        // boxType={"square"}
                         // onValueChange={() => toggleCheckBox ? setToggleCheckBox(false) : setToggleCheckBox(true)}
                     />
                 </View>
-                <View>
-                    <Text style={[styles.fileSelectorText, {width: props.width}]}>
+                <View >
+                    <Text numberOfLines={1} style={[styles.fileSelectorText, {width: props.width}]}>
                         {props.text !== '' ? props.text : 'Select audio file'}
                     </Text>
                 </View>
-                <View>
+                <View style={styles.fileIcon}>
                     <TouchableOpacity onPress={() => AudioPicker()}>
                         <FontAwesomeIcon icon={props.icon} color="white" marginLeft={10}/>
                     </TouchableOpacity>
-
                 </View>
             </View>
         </SafeAreaView>
@@ -49,15 +50,25 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         backgroundColor: Colors.dark,
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
+        height: 40,
+    },
+    checkBoxView: {
+        marginLeft: 12,
+        marginTop: -6,
+    },
+    checkBox: {
+        height: 30,
     },
     fileSelectorText: {
+        flex: 1,
         color: Colors.lighter,
+        textAlign: "center",
+        paddingLeft: 40,
+        paddingRight: 40,
     },
     fileIcon: {
-        position: 'absolute',
-        right: 0,
+        marginRight: 15,
     },
 });

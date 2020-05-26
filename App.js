@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
 
 import Sound from 'react-native-sound';
 import SystemSetting from 'react-native-system-setting/SystemSetting';
@@ -18,6 +18,8 @@ import {AdMobBanner} from 'react-native-admob';
 
 import Colors from './main/Colors';
 import AudioFile from './settings/fileSelector';
+import ToggleSwitch from './settings/switch';
+import {Text} from 'react-native-svg';
 
 function HomeScreen({navigation, onFailToReceiveAd}) {
     React.useLayoutEffect(() => {
@@ -62,10 +64,28 @@ function SettingsScreen({navigation}) {
     return (
         <SafeAreaView style={styles.settings}>
             <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
-            <View style={{padding: 20}}/>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3*dimensions.width/4}/>
-            <View style={{padding: 10}}/>
-            <AudioFile id={2} text=""  icon="folder-open" width={3*dimensions.width/4}/>
+            <ToggleSwitch/>
+            <View
+                style={{
+                    borderBottomColor: Colors.dark,
+                    borderBottomWidth: 1,
+                    width: dimensions.width,
+                    marginTop: -10,
+                }}
+            />
+            <HeaderTitle style={{textAlign: 'center', color: Colors.white}}>
+                Sounds:
+            </HeaderTitle>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
+            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
         </SafeAreaView>
     );
 }
@@ -84,7 +104,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-around',
         backgroundColor: Colors.darker,
     },
     button: {
