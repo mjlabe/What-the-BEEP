@@ -16,10 +16,14 @@ import SystemSetting from 'react-native-system-setting/SystemSetting';
 
 import {AdMobBanner} from 'react-native-admob';
 
-import Colors from './main/Colors';
+import Colors from './main/Colors'
+GLOBAL = require('./main/global');
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+
+
 import AudioFile from './settings/fileSelector';
 import ToggleSwitch from './settings/switch';
-import {Text} from 'react-native-svg';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 function HomeScreen({navigation, onFailToReceiveAd}) {
     React.useLayoutEffect(() => {
@@ -27,7 +31,7 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
             headerLeft: () => (
                 <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                     <Image
-                        source={require('./main/images/dog-icon-light.png')}
+                        source={GLOBAL.colorMode === 'dark' ? require('./main/images/dog-icon-light.png') : require('./main/images/dog-icon.png')}
                         alt=""
                         resizeMode={'stretch'}
                         style={styles.logo}
@@ -38,7 +42,7 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
     });
     return (
         <SafeAreaView style={styles.home}>
-            <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
+            <StatusBar backgroundColor={Colors["dark"].black}/>
             <View style={styles.body}>
                 <TouchableOpacity onPress={() => beep()}>
                     <Image
@@ -61,31 +65,74 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
 }
 
 function SettingsScreen({navigation}) {
+    let radio_props = [
+        {label: 'param1', value: 0 , color: Colors.light},
+        {label: 'param2', value: 1 }
+    ];
+
+    function setState(value){
+        alert(value.value);
+    }
+
     return (
         <SafeAreaView style={styles.settings}>
-            <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
-            <ToggleSwitch/>
-            <View
-                style={{
-                    borderBottomColor: Colors.dark,
-                    borderBottomWidth: 1,
-                    width: dimensions.width,
-                    marginTop: -10,
-                }}
-            />
-            <HeaderTitle style={{textAlign: 'center', color: Colors.white}}>
+            <StatusBar barStyle="light-content" backgroundColor={Colors[GLOBAL.colorMode].black}/>
+            {/*<ToggleSwitch/>*/}
+            {/*<View*/}
+            {/*    style={{*/}
+            {/*        borderBottomColor: Colors[GLOBAL.colorMode].dark,*/}
+            {/*        borderBottomWidth: 1,*/}
+            {/*        width: dimensions.width,*/}
+            {/*        marginTop: -10,*/}
+            {/*    }}*/}
+            {/*/>*/}
+            <HeaderTitle style={{textAlign: 'center', color: Colors[GLOBAL.colorMode].white}}>
                 Sounds:
             </HeaderTitle>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>
-            <AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>
+            {/*<AudioFile id={1} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={2} text="" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={3} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={4} text="" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={5} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={6} text="" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={7} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={8} text="" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={9} text="test text" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            {/*<AudioFile id={10} text="" icon="folder-open" width={3 * dimensions.width / 4}/>*/}
+            <RadioForm
+                radio_props={radio_props}
+                initial={0}
+                formHorizontal={false}
+                labelHorizontal={true}
+                buttonColor={'#2196f3'}
+                // labelStyle={{color: Colors.light}}
+                animation={true}
+                onPress={(value) => {setState({value:value})}}>
+                <RadioButton >
+                    {/*  You can set RadioButtonLabel before RadioButtonInput */}
+                    <RadioButtonInput
+                        // obj={obj}
+                        // index={i}
+                        // isSelected={this.state.value3Index === i}
+                        // onPress={onPress}
+                        borderWidth={1}
+                        buttonInnerColor={'#e74c3c'}
+                        // buttonOuterColor={this.state.value3Index === i ? '#2196f3' : '#000'}
+                        buttonSize={40}
+                        buttonOuterSize={80}
+                        buttonStyle={{}}
+                        buttonWrapStyle={{marginLeft: 10}}
+                    />
+                    <RadioButtonLabel
+                        // obj={obj}
+                        // index={i}
+                        // labelHorizontal={true}
+                        // onPress={onPress}
+                        labelStyle={{fontSize: 20, color: '#2ecc71'}}
+                        // labelWrapStyle={{}}
+                    />
+                </RadioButton>
+            </RadioForm>
         </SafeAreaView>
     );
 }
@@ -98,14 +145,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        backgroundColor: Colors.darker,
+        backgroundColor: Colors[GLOBAL.colorMode].darker,
     },
     settings: {
         flex: 1,
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        backgroundColor: Colors.darker,
+        backgroundColor: Colors[GLOBAL.colorMode].darker,
     },
     button: {
         width: dimensions.width / 2,
@@ -149,44 +196,65 @@ function beep() {
 
 const Stack = createStackNavigator();
 
+/**
+ * @return {null}
+ */
 function App() {
-    const onFailToReceiveAd = (error) => console.log(error);
+    // let getData = async () => {
+    //     try {
+    //         const value = await AsyncStorage.getItem('dark');
+    //         if(value !== null) {
+    //             return value;
+    //         }
+    //     } catch(e) {
+    //         return 'light'
+    //     }
+    // };
+    //
+    // getData().then(r => GLOBAL.colorMode === r);
+    // const onFailToReceiveAd = (error) => console.log(error);
+    //
+    // if (GLOBAL.colorMode === null) {
+    //     return null;
+    // }
+    // else {
 
-    return (
-        <NavigationContainer>
-            <StatusBar barStyle="dark-content"/>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{
-                        title: 'What the BEEP?!',
-                        headerStyle: {
-                            backgroundColor: Colors.black,
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
-                    }}
-                />
-                <Stack.Screen
-                    name="Settings"
-                    component={SettingsScreen}
-                    options={{
-                        headerStyle: {
-                            backgroundColor: Colors.black,
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
-                        headerBackTitleVisible: false,
-                    }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+        return (
+            <NavigationContainer>
+                <StatusBar barStyle="dark-content"/>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="Home"
+                        component={HomeScreen}
+                        options={{
+                            title: 'What the BEEP?!',
+                            headerStyle: {
+                                backgroundColor: Colors[GLOBAL.colorMode].black,
+                            },
+                            headerTintColor: Colors[GLOBAL.colorMode].white,
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Settings"
+                        component={SettingsScreen}
+                        options={{
+                            headerStyle: {
+                                backgroundColor: Colors[GLOBAL.colorMode].black,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                            headerBackTitleVisible: false,
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        );
+    // }
 }
 
 export default App;

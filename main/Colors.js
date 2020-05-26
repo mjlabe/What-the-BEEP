@@ -11,11 +11,22 @@
 'use strict';
 
 export default {
-  primary: '#1292B4',
-  white: '#FFF',
-  lighter: '#F3F3F3',
-  light: '#DAE1E7',
-  dark: '#444',
-  darker: '#222222',
-  black: '#000',
+    dark: {
+        primary: '#1292B4',
+        white: '#FFF',
+        lighter: '#F3F3F3',
+        light: '#DAE1E7',
+        dark: '#444',
+        darker: '#222222',
+        black: '#000',
+    },
+    light: {
+        primary: '#1292B4',
+        black: '#FFF',
+        darker: '#F3F3F3',
+        dark: '#DAE1E7',
+        light: '#444',
+        lighter: '#222222',
+        white: '#000',
+    },
 };

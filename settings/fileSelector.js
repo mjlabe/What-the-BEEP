@@ -16,7 +16,7 @@ import Colors from '../main/Colors';
 export default function AudioFile(props: Props) {
     return (
         <SafeAreaView style={[{width: props.width}]}>
-            <StatusBar barStyle="light-content" backgroundColor={Colors.black}/>
+            <StatusBar barStyle="light-content" backgroundColor={Colors['dark'].black}/>
             <View style={styles.fileSelector}>
                 <View style={styles.checkBoxView}>
                     <CheckBox
@@ -46,10 +46,10 @@ export default function AudioFile(props: Props) {
 const styles = StyleSheet.create({
     fileSelector: {
         padding: 10,
-        borderColor: Colors.light,
+        borderColor: Colors['dark'].light,
         borderWidth: 1,
         borderRadius: 10,
-        backgroundColor: Colors.dark,
+        backgroundColor: Colors['dark'].dark,
         flexDirection: 'row',
         justifyContent: 'space-around',
         height: 40,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     fileSelectorText: {
         flex: 1,
-        color: Colors.lighter,
+        color: Colors['dark'].lighter,
         textAlign: "center",
         paddingLeft: 40,
         paddingRight: 40,

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text, Switch, StyleSheet} from 'react-native';
-import Colors from '../main/Colors';
+import AsyncStorage from '@react-native-community/async-storage';
+import Colors from '../main/Colors'
+import GLOBAL from '../main/global'
 
 export default function ToggleSwitch() {
-    const [isEnabled, setIsEnabled] = useState(true);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    console.log(GLOBAL.colorMode !== 'dark');
+    const [isEnabled, setIsEnabled] = useState(GLOBAL.colorMode !== 'dark');
 
     return (
         <View style={styles.container}>
@@ -13,14 +15,23 @@ export default function ToggleSwitch() {
             </Text>
             <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
-                // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
+                onValueChange={mode}
                 value={isEnabled}
                 style={styles.switch}
             />
         </View>
     );
+
+    function mode() {
+        console.log(GLOBAL.colorMode);
+        setIsEnabled(previousState => !previousState);
+        isEnabled ? GLOBAL.colorMode = 'dark' : GLOBAL.colorMode = 'light';
+        // AsyncStorage.setItem("colorMode", JSON.stringify(GLOBAL.colorMode));
+        // const value = AsyncStorage.getItem("colorMode");
+        // console.log(value);
+        // this.setState(GLOBAL.colorMode === 'light' )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -29,7 +40,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: Colors.lighter,
+        color: Colors[GLOBAL.colorMode].lighter,
         marginRight: 20,
     },
 });
