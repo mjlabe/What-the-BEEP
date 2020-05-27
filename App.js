@@ -18,11 +18,12 @@ import {AdMobBanner} from 'react-native-admob';
 
 import Colors from './main/Colors'
 GLOBAL = require('./main/global');
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
 
 
 import AudioFile from './settings/fileSelector';
 import ToggleSwitch from './settings/switch';
+import AudioPicker from './settings/docPicker';
 // import AsyncStorage from '@react-native-community/async-storage';
 
 function HomeScreen({navigation, onFailToReceiveAd}) {
@@ -66,12 +67,24 @@ function HomeScreen({navigation, onFailToReceiveAd}) {
 
 function SettingsScreen({navigation}) {
     let radio_props = [
-        {label: 'param1', value: 0 , color: Colors.light},
-        {label: 'param2', value: 1 }
+        {label: 'Collar Beep', value: 0 },
+        {label: 'Whistle', value: 1 },
+        {label: 'Dog Whistle', value: 2 },
+        {label: 'Click', value: 3 },
+        {label: 'Blah', value: 4 },
+        {label: 'Custom', value: 5 },
+        {label: 'Custom', value: 6 },
+        {label: 'Custom', value: 7 },
+        {label: 'Custom', value: 8 },
+        {label: 'Custom', value: 9 },
     ];
 
-    function setState(value){
-        alert(value.value);
+    function setState(value) {
+        if (value.value > 4) {
+            AudioPicker();
+        } else {
+            alert(value.value);
+        }
     }
 
     return (
@@ -104,35 +117,10 @@ function SettingsScreen({navigation}) {
                 initial={0}
                 formHorizontal={false}
                 labelHorizontal={true}
-                buttonColor={'#2196f3'}
-                // labelStyle={{color: Colors.light}}
+                labelColor={Colors[GLOBAL.colorMode].light}
+                selectedLabelColor={Colors[GLOBAL.colorMode].light}
                 animation={true}
-                onPress={(value) => {setState({value:value})}}>
-                <RadioButton >
-                    {/*  You can set RadioButtonLabel before RadioButtonInput */}
-                    <RadioButtonInput
-                        // obj={obj}
-                        // index={i}
-                        // isSelected={this.state.value3Index === i}
-                        // onPress={onPress}
-                        borderWidth={1}
-                        buttonInnerColor={'#e74c3c'}
-                        // buttonOuterColor={this.state.value3Index === i ? '#2196f3' : '#000'}
-                        buttonSize={40}
-                        buttonOuterSize={80}
-                        buttonStyle={{}}
-                        buttonWrapStyle={{marginLeft: 10}}
-                    />
-                    <RadioButtonLabel
-                        // obj={obj}
-                        // index={i}
-                        // labelHorizontal={true}
-                        // onPress={onPress}
-                        labelStyle={{fontSize: 20, color: '#2ecc71'}}
-                        // labelWrapStyle={{}}
-                    />
-                </RadioButton>
-            </RadioForm>
+                onPress={(value) => {setState({value:value})}}/>
         </SafeAreaView>
     );
 }
